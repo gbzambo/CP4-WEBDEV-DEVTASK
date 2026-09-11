@@ -23,6 +23,7 @@ const TaskCard = ({ tarefa, onConcluir, onRemover }) => {
         {tarefa.descricao}
       </p>
 
+      {/* Callback usado para informar ao App qual tarefa deve ser concluída */}
       <button
         onClick={() => onConcluir(tarefa.id)}
         className="mt-4 rounded-lg bg-green-600 px-4 py-2 font-semibold text-white transition hover:bg-green-500"
@@ -30,6 +31,7 @@ const TaskCard = ({ tarefa, onConcluir, onRemover }) => {
         Concluir
       </button>
 
+      {/* Callback usado para informar ao App qual tarefa deve ser removida */}
       <button
         onClick={() => onRemover(tarefa.id)}
         className="ml-2 mt-4 rounded-lg bg-red-600 px-4 py-2 font-semibold text-white transition hover:bg-red-500"

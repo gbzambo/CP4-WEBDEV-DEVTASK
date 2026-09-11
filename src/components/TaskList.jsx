@@ -1,23 +1,28 @@
 import TaskCard from "./TaskCard"
 
-const TaskList = ({ tarefas, onConcluir, onRemover, filtro}) => {
-    const tarefasFiltradas = tarefas.filter((tarefa) => {
-  if (filtro === "pendentes") {
-    return !tarefa.concluida
-  }
+const TaskList = ({ tarefas, onConcluir, onRemover, filtro }) => {
 
-  if (filtro === "concluidas") {
-    return tarefa.concluida
-  }
+  // filter() cria um novo array contendo somente
+  // as tarefas que correspondem ao filtro selecionado
+  const tarefasFiltradas = tarefas.filter((tarefa) => {
+    if (filtro === "pendentes") {
+      return !tarefa.concluida
+    }
 
-  return true
-})
+    if (filtro === "concluidas") {
+      return tarefa.concluida
+    }
+
+    return true
+  })
+
   return (
     <div className="mx-auto mt-6 max-w-2xl">
       <h2 className="mb-4 text-xl font-bold text-white">
         Tarefas
       </h2>
 
+      {/* map() percorre as tarefas filtradas e cria um TaskCard para cada tarefa */}
       {tarefasFiltradas.map((tarefa) => (
         <TaskCard
           key={tarefa.id}

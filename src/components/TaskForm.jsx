@@ -1,38 +1,47 @@
 import { useState } from "react"
-const TaskForm = ({onAdicionarTarefa}) => {
-    const [nome,setNome]=useState("")
-    const [data, setData] = useState("")
-    const [prioridade, setPrioridade] = useState("Baixa")
-    const [descricao, setDescricao] = useState("")
-    const handleSubmit = (event) => {
+
+const TaskForm = ({ onAdicionarTarefa }) => {
+  // Hook usado para controlar os valores preenchidos no formulário
+  const [nome, setNome] = useState("")
+  const [data, setData] = useState("")
+  const [prioridade, setPrioridade] = useState("Baixa")
+  const [descricao, setDescricao] = useState("")
+
+  // Callback executado quando o formulário é enviado
+  const handleSubmit = (event) => {
+    // Impede o navegador de recarregar a página ao enviar o formulário
     event.preventDefault()
+
     const novaTarefa = {
-        id: Date.now(),
-        nome: nome,
-        data: data,
-        prioridade: prioridade,
-        descricao: descricao,
-        concluida: false
+      id: Date.now(),
+      nome: nome,
+      data: data,
+      prioridade: prioridade,
+      descricao: descricao,
+      concluida: false
     }
+
+    // Callback recebido através das props para enviar
+    // a nova tarefa para o componente App
     onAdicionarTarefa(novaTarefa)
-}
-    
+  }
+
   return (
-    <form 
-    onSubmit={handleSubmit}
-    className="mx-auto max-w-2xl rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-lg">
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto max-w-2xl rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-lg"
+    >
 
       <h2 className="mb-6 text-2xl font-bold text-white">
         Nova tarefa
       </h2>
 
-      {/* Nome da tarefa */}
       <div className="mb-4">
         <label className="mb-2 block text-sm font-medium text-white">
           Nome da tarefa
         </label>
 
-        <input      
+        <input
           type="text"
           placeholder="Digite o nome da tarefa"
           onChange={(event) => setNome(event.target.value)}
@@ -40,7 +49,6 @@ const TaskForm = ({onAdicionarTarefa}) => {
         />
       </div>
 
-      {/* Data */}
       <div className="mb-4">
         <label className="mb-2 block text-sm font-medium text-white">
           Data
@@ -53,7 +61,6 @@ const TaskForm = ({onAdicionarTarefa}) => {
         />
       </div>
 
-      {/* Prioridade */}
       <div className="mb-4">
         <label className="mb-2 block text-sm font-medium text-white">
           Prioridade
@@ -69,7 +76,6 @@ const TaskForm = ({onAdicionarTarefa}) => {
         </select>
       </div>
 
-      {/* Descrição */}
       <div className="mb-6">
         <label className="mb-2 block text-sm font-medium text-white">
           Descrição
@@ -83,14 +89,12 @@ const TaskForm = ({onAdicionarTarefa}) => {
         />
       </div>
 
-      {/* Botão */}
       <button
         type="submit"
         className="w-full rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500"
       >
         Adicionar tarefa
       </button>
-
     </form>
   )
 }
