@@ -1,12 +1,15 @@
-  import React from 'react'
-  import { useState } from "react"
-  import TaskForm from "./components/TaskForm"
-  import TaskList from "./components/TaskList"  
-  const App = () => {
-    const [tarefas, setTarefas] = useState([])
-    const concluirTarefa = (id) => {
+import React from 'react'
+import { useState } from "react"
+import TaskForm from "./components/TaskForm"
+import TaskList from "./components/TaskList"
+import FilterButtons from "./components/FilterButtons"
+
+const App = () => {
+  const [tarefas, setTarefas] = useState([])
+  const [filtro, setFiltro] = useState("todas")
+
+  const concluirTarefa = (id) => {
     setTarefas(
-    
       tarefas.map((tarefa) =>
         tarefa.id === id
           ? { ...tarefa, concluida: true }
@@ -14,22 +17,38 @@
       )
     )
   }
+
   const removerTarefa = (id) => {
-  setTarefas(tarefas.filter((tarefa) => tarefa.id !== id))
-}
-    const adicionarTarefa = (novaTarefa) => {
-  setTarefas([...tarefas, novaTarefa])
-  }
-    return (
-      <div>
-        <TaskForm onAdicionarTarefa={adicionarTarefa} />
-        <TaskList
-          tarefas={tarefas}
-           onConcluir={concluirTarefa}
-          onRemover={removerTarefa}
-        />
-      </div>
+    setTarefas(
+      tarefas.filter((tarefa) => tarefa.id !== id)
     )
   }
 
-  export default App
+  const adicionarTarefa = (novaTarefa) => {
+    setTarefas([...tarefas, novaTarefa])
+  }
+
+  const alterarFiltro = (novoFiltro) => {
+    setFiltro(novoFiltro)
+  }
+
+  return (
+    <div>
+      <TaskForm onAdicionarTarefa={adicionarTarefa} />
+
+      <FilterButtons
+        filtro={filtro}
+        onFiltroChange={alterarFiltro}
+      />
+
+      <TaskList
+        tarefas={tarefas}
+        onConcluir={concluirTarefa}
+        onRemover={removerTarefa}
+        filtro={filtro}
+      />
+    </div>
+  )
+}
+
+export default App
